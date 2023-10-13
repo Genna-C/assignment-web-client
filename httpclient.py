@@ -69,16 +69,6 @@ class HTTPClient(object):
         PORT = split_url.port
         if not PORT: PORT = 80
         return HOST, PORT
-        
-    def validate_url(self, url):
-        parsed_url = urlparse(url) 
-        add_url = parsed_url.scheme + parsed_url.netloc
-        if parsed_url.scheme == "http": 
-            add_url = "https://" + parsed_url.netloc
-        
-        if len(urlparse(url).path) > 1: 
-             add_url += parsed_url.path
-        return add_url 
             
     # read everything from the socket
     def recvall(self, sock):
@@ -101,11 +91,6 @@ class HTTPClient(object):
         self.sendall(body) 
         response = self.recvall(self.socket) 
         self.close() 
-        
-        print("------------")
-        print("for request %s " %body) 
-        print("Printing Response: %s" %self.get_headers(response)) 
-        print("------------")
         
         return HTTPResponse(self.get_code(response), self.get_body(response))
 
