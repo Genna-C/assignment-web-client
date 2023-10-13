@@ -104,7 +104,7 @@ class HTTPClient(object):
             request += "%s\r\n\r\n" %length
             request += "{0}\r\n\r\n".format(urlencode(args))
         else:
-            request += "0\r\n\r\n"
+            request += "\r\n\r\n"
             
         self.socket.sendall(request.encode("utf-8")) 
         response = self.recvall(self.socket) 
